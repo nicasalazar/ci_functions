@@ -20,7 +20,7 @@ def call(dockerRepoName, imageName, portNum) {
                     expression { env.GIT_BRANCH == "origin/main" }
                 }
                 steps {
-                    withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {
+                    withCredentials([string(credentialsId: ${{ secrets.DOCKER_HUB_USERNAME }}, variable: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }})]) {
                         sh "docker login -u 'nicasalazar7' -p '$TOKEN' docker.io"
                         sh "docker build -t ${dockerRepoName}:latest --tag nicasalazar7/${dockerRepoName}:${imageName} ."
                         sh "docker push nicasalazar7/${dockerRepoName}:${imageName}"
