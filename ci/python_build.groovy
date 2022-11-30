@@ -10,11 +10,6 @@ def call(dockerRepoName, imageName, portNum) {
                     sh "pip install -r requirements.txt"
                 }
             }
-            stage("Python Lint") {
-                steps {
-                    sh "pylint-fail-under --fail_under 5.0 *.py"
-                }
-            }
             stage("Package") {
                 when {
                     expression { env.GIT_BRANCH == "origin/main" }
